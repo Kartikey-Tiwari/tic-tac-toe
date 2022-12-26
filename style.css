@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+body {
+  height: 100vh;
+  font-family: "Varela Round", sans-serif;
+  text-align: center;
+}
+
+.center {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+header {
+  background-color: #4c5c68;
+  border-bottom: 3px solid #2a3a46;
+  color: #b0e4db;
+  height: 15%;
+  font-size: 40px;
+}
+
+main {
+  height: 85%;
+  flex-direction: column;
+  background-color: #c5c3c6;
+}
+
+h2 {
+  font-size: 32px;
+  color: #46494b;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  width: 300px;
+  height: 300px;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 42px;
+  background-color: white;
+}
+
+.restart {
+  padding: 20px;
+  font-size: 24px;
+  color: #b0e4db;
+  border-radius: 5px;
+  border: 3px solid #2a3a46;
+  background-color: #4c5c68;
+}
