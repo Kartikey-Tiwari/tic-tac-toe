@@ -115,7 +115,6 @@
       });
 
       cell.classList.add("cell");
-      cell.style.height = "100px";
       if (i !== 0) cell.style.borderTop = "2px solid black";
       else cell.style.borderTop = "3px solid grey";
       if (j !== 0) cell.style.borderLeft = "2px solid black";

@@ -6,7 +6,6 @@
 
 button {
   font-family: inherit;
-  font-size: inherit;
 }
 
 body {
@@ -17,7 +16,7 @@ body {
 
 .center {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -26,7 +25,10 @@ header {
   border-bottom: 3px solid #2a3a46;
   color: #b0e4db;
   height: 15%;
-  font-size: 40px;
+}
+
+header h1 {
+  font-size: 54px;
 }
 
 main {
@@ -43,8 +45,9 @@ h2 {
 .board {
   display: grid;
   grid-template-columns: 33% 33% 33%;
-  width: 300px;
-  height: 300px;
+  grid-template-rows: 33% 33% 33%;
+  height: 70%;
+  width: calc(0.7 * 85vh);
 }
 
 .cell {
@@ -56,10 +59,23 @@ h2 {
 }
 
 .restart {
-  padding: 20px;
+  padding: 10px 20px;
   font-size: 24px;
   color: #b0e4db;
   border-radius: 5px;
   border: 3px solid #2a3a46;
   background-color: #4c5c68;
+}
+
+@media only screen and (max-width: 450px) and (min-height: 600px) {
+  header h1 {
+    font-size: 48px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  .board {
+    height: calc(0.9 * 100vw);
+    width: 90%;
+  }
 }
