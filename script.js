@@ -86,11 +86,15 @@
       }
     }
 
+    function getCellsFilled() {
+      return cellsFilled;
+    }
+
     return {
       move,
       checkWinner,
       reset,
-      cellsFilled,
+      getCellsFilled,
     };
   })();
 
@@ -100,13 +104,16 @@
     for (let j = 0; j < 3; j++) {
       const cell = document.createElement("div");
       cell.addEventListener("click", () => {
-        if (!keepPlaying || gameboard.cellsFilled === 9) return;
+        if (!keepPlaying || gameboard.getCellsFilled() === 9) return;
         const moved = gameboard.move(i, j, activePlayer.symbol);
         if (moved) {
           cell.textContent = activePlayer.symbol;
           if (gameboard.checkWinner()) {
             keepPlaying = false;
             info.textContent = ` has won the game!`;
+          } else if (gameboard.getCellsFilled() === 9) {
+            info.textContent = "It's a tie!";
+            activePlayerDOM.textContent = "";
           } else {
             switchPlayers();
             activePlayerDOM.textContent = activePlayer.name;
