@@ -8,6 +8,34 @@ button {
   font-family: inherit;
 }
 
+.marker {
+  height: calc(0.7 * 0.5 * 0.5 * 100vw);
+  max-height: calc(0.3 * 85vh);
+  max-width: calc(0.3 * 85vh);
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.marker-a:hover {
+  transform: scale(1.1);
+  background: rgba(0, 255, 0, 0.5);
+}
+
+.marker-b:hover {
+  transform: scale(1.15);
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.marker-margin {
+  margin-left: auto;
+}
+
+img {
+  height: 100%;
+}
+
 body {
   height: 100vh;
   font-family: "Varela Round", sans-serif;
@@ -29,6 +57,75 @@ header {
 
 header h1 {
   font-size: 54px;
+}
+
+.start-screen {
+  height: 85%;
+}
+
+.markers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.marker-a.selected {
+  border: 4px solid green;
+  background-color: rgba(0, 255, 0, 0.7);
+}
+
+.marker-b.selected {
+  border: 4px solid red;
+  background-color: rgba(255, 0, 0, 0.7);
+}
+
+form > h2 {
+  grid-row: 1;
+  grid-column: 1 / 3;
+}
+
+form {
+  width: 70%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+#start-game-wrapper {
+  grid-row: 4;
+  grid-column: 1 / 3;
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-info > label,
+input {
+  font-size: 24px;
+}
+
+input {
+  width: 25vw;
+  max-width: 270px;
+  padding: 5px;
+  outline: none;
+  border-radius: 5px;
+}
+
+input.focus {
+  border: 2px solid blue;
+}
+
+input.invalid {
+  border: 2px solid red;
+}
+
+input.valid {
+  border: 2px solid green;
 }
 
 main {
@@ -76,7 +173,13 @@ h2 {
   border-right: none;
 }
 
-.restart {
+.game-btns {
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+button {
   padding: 10px 20px;
   font-size: 24px;
   color: #b0e4db;
@@ -86,15 +189,42 @@ h2 {
   cursor: pointer;
 }
 
+.hidden {
+  display: none;
+}
+
 @media only screen and (max-width: 450px) and (min-height: 600px) {
   header h1 {
     font-size: 48px;
   }
   h2 {
-    font-size: 24px;
+    font-size: 28px;
+  }
+  .player-info > label,
+  input {
+    font-size: 20px;
   }
   .board {
     height: calc(0.9 * 100vw);
     width: 90%;
+  }
+  button {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+  .start-screen {
+    height: auto;
+    padding: 10px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+  .marker {
+    height: calc(0.9 * 0.5 * 100vw);
+  }
+  input {
+    width: 200px;
   }
 }

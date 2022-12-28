@@ -81,9 +81,7 @@ function playerFactory(name, mark) {
 
 const GameController = (() => {
   let isGameOver = false;
-  const player1 = playerFactory("Player 1", "X");
-  const player2 = playerFactory("Player 2", "O");
-  let activePlayer = player1;
+  let player1, player2, activePlayer;
 
   function switchPlayers() {
     activePlayer = activePlayer === player1 ? player2 : player1;
@@ -114,45 +112,162 @@ const GameController = (() => {
     DisplayController.displayMessage(`${activePlayer.getName()}'s turn`);
   }
 
+  function init() {
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+    arr.sort(() => Math.random() - 0.5);
+    DisplayController.displayMarkers(arr);
+  }
+
+  function setUpPlayers(player1Name, player1Mark, player2Name, player2Mark) {
+    player1 = playerFactory(player1Name, player1Mark);
+    player2 = playerFactory(player2Name, player2Mark);
+    activePlayer = player1;
+  }
+
   return {
     makeMove,
     isOver,
     reset,
+    init,
+    setUpPlayers,
   };
 })();
 
 const DisplayController = (() => {
+  const startScreen = document.querySelector(".start-screen");
+  const mainGameScreen = document.querySelector("main");
   const gameInfo = document.querySelector(".game-info");
   const boardCells = document.querySelectorAll(".cell");
   const restartBtn = document.querySelector(".restart");
+  const newGameBtn = document.querySelector(".new-game");
+  const playBtn = document.querySelector("#start-game");
+  const markersA = document.querySelectorAll(".marker-a");
+  const markersB = document.querySelectorAll(".marker-b");
+  const playerNames = document.querySelectorAll(".player-info > input");
+  let markerA, markerB;
 
   boardCells.forEach((cell) => {
     cell.addEventListener("click", () => {
-      if (GameController.isOver() || cell.textContent !== "") return;
+      if (GameController.isOver() || cell.innerHTML !== "") return;
       const row = +cell.dataset.row;
       const col = +cell.dataset.col;
       GameController.makeMove(row, col, cell);
     });
   });
 
-  restartBtn.addEventListener("click", () => {
+  function reset() {
     GameBoard.reset();
     GameController.reset();
     boardCells.forEach((cell) => {
       cell.textContent = "";
     });
+  }
+
+  restartBtn.addEventListener("click", reset);
+
+  playBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    for (const player of playerNames) {
+      if (!player.checkValidity()) {
+        player.classList.add("invalid");
+        return;
+      }
+    }
+    if (!markerA || !markerB) return;
+    GameController.setUpPlayers(
+      playerNames[0].value,
+      markerA.dataset.idx,
+      playerNames[1].value,
+      markerB.dataset.idx
+    );
+    gameInfo.textContent = `${playerNames[0].value}'s turn`;
+    startScreen.classList.add("hidden");
+    mainGameScreen.classList.remove("hidden");
   });
+
+  newGameBtn.addEventListener("click", () => {
+    reset();
+    for (const player of playerNames) {
+      player.value = "";
+      player.className = "";
+    }
+    markerA.classList.remove("selected");
+    markerB.classList.remove("selected");
+    markerA = null;
+    markerB = null;
+    startScreen.classList.remove("hidden");
+    mainGameScreen.classList.add("hidden");
+    GameController.init();
+  });
+
+  markersA.forEach((marker) => {
+    marker.addEventListener("click", () => {
+      if (markerA) {
+        markerA.classList.remove("selected");
+      }
+      markerA = marker;
+      markerA.classList.add("selected");
+    });
+  });
+
+  markersB.forEach((marker) => {
+    marker.addEventListener("click", () => {
+      if (markerB) {
+        markerB.classList.remove("selected");
+      }
+      markerB = marker;
+      markerB.classList.add("selected");
+    });
+  });
+
+  for (const player of playerNames) {
+    player.addEventListener("focus", () => {
+      player.classList.add("focus");
+    });
+
+    player.addEventListener("blur", () => {
+      player.classList.remove("focus");
+      if (!player.checkValidity()) {
+        player.classList.add("invalid");
+      }
+    });
+
+    player.addEventListener("input", () => {
+      if (player.checkValidity()) {
+        player.classList.remove("invalid");
+        player.classList.add("valid");
+      } else {
+        if (player.classList.contains("valid")) {
+          player.classList.remove("valid");
+          player.classList.add("invalid");
+        }
+      }
+    });
+  }
 
   function displayMessage(message) {
     gameInfo.textContent = message;
   }
 
   function setMark(cell, mark) {
-    cell.textContent = mark;
+    cell.innerHTML = `<img src="./images/${mark}.webp"/>`;
+  }
+
+  function displayMarkers(arr) {
+    let j = 0;
+    for (; j < 8; j++) {
+      const i = j % 4;
+      const cur = j < 4 ? markersA : markersB;
+      cur[i].firstChild.src = `./images/${arr[j]}.webp`;
+      cur[i].dataset.idx = `${arr[j]}`;
+    }
   }
 
   return {
     displayMessage,
     setMark,
+    displayMarkers,
   };
 })();
+
+GameController.init();
