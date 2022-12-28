@@ -44,10 +44,11 @@ h2 {
 
 .board {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 33% 33% 33%;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+  grid-template-rows: 33.33% 33.33% 33.33%;
   height: 70%;
   width: calc(0.7 * 85vh);
+  border: 3px solid grey;
 }
 
 .cell {
@@ -56,6 +57,23 @@ h2 {
   align-items: center;
   font-size: 42px;
   background-color: white;
+  border: 2px solid black;
+}
+
+.cell-no-bottom {
+  border-bottom: none;
+}
+
+.cell-no-top {
+  border-top: none;
+}
+
+.cell-no-left {
+  border-left: none;
+}
+
+.cell-no-right {
+  border-right: none;
 }
 
 .restart {
@@ -65,6 +83,7 @@ h2 {
   border-radius: 5px;
   border: 3px solid #2a3a46;
   background-color: #4c5c68;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 450px) and (min-height: 600px) {
