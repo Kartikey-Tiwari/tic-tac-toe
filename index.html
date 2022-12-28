@@ -16,10 +16,35 @@
     <header class="center"><h1>Tic-Tac-Toe</h1></header>
     <main class="center">
       <h2>
-        <span class="activePlayer">Player 1</span
-        ><span class="game-info">'s turn</span>
+        <span class="game-info">Player 1's turn</span>
       </h2>
-      <div class="board"></div>
+      <div class="board">
+        <div
+          data-row="0"
+          data-col="0"
+          class="cell cell-no-left cell-no-top"
+        ></div>
+        <div data-row="0" data-col="1" class="cell cell-no-top"></div>
+        <div
+          data-row="0"
+          data-col="2"
+          class="cell cell-no-top cell-no-right"
+        ></div>
+        <div data-row="1" data-col="0" class="cell cell-no-left"></div>
+        <div data-row="1" data-col="1" class="cell"></div>
+        <div data-row="1" data-col="2" class="cell cell-no-right"></div>
+        <div
+          data-row="2"
+          data-col="0"
+          class="cell cell-no-left cell-no-bottom"
+        ></div>
+        <div data-row="2" data-col="1" class="cell cell-no-bottom"></div>
+        <div
+          data-row="2"
+          data-col="2"
+          class="cell cell-no-bottom cell-no-right"
+        ></div>
+      </div>
       <div><button class="restart">Restart</button></div>
     </main>
     <script src="script.js"></script>
