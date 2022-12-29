@@ -13,9 +13,10 @@ button {
   max-height: calc(0.3 * 85vh);
   max-width: calc(0.3 * 85vh);
   width: 100%;
-  border: 2px solid black;
   border-radius: 5px;
   cursor: pointer;
+  padding: 1%;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .marker-a:hover {
@@ -40,6 +41,7 @@ body {
   height: 100vh;
   font-family: "Varela Round", sans-serif;
   text-align: center;
+  background-color: black;
 }
 
 .center {
@@ -49,9 +51,11 @@ body {
 }
 
 header {
-  background-color: #4c5c68;
-  border-bottom: 3px solid #2a3a46;
-  color: #b0e4db;
+  background: linear-gradient(to right, #16ae58, #c6e115 70%, #e6eb08);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  border-bottom: 3px solid #070707;
   height: 15%;
 }
 
@@ -61,21 +65,23 @@ header h1 {
 
 .start-screen {
   height: 85%;
+  background-image: url("./images/bg.jpg");
+  background-size: cover;
 }
 
 .markers {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 5px;
 }
 
 .marker-a.selected {
-  border: 4px solid green;
+  border: 2px solid green;
   background-color: rgba(0, 255, 0, 0.7);
 }
 
 .marker-b.selected {
-  border: 4px solid red;
+  border: 2px solid red;
   background-color: rgba(255, 0, 0, 0.7);
 }
 
@@ -106,6 +112,11 @@ form {
 .player-info > label,
 input {
   font-size: 24px;
+  text-align: center;
+}
+
+.player-info > label {
+  color: white;
 }
 
 input {
@@ -114,10 +125,12 @@ input {
   padding: 5px;
   outline: none;
   border-radius: 5px;
+  font-family: inherit;
+  border: 2px solid #747400;
 }
 
 input.focus {
-  border: 2px solid blue;
+  border: 2px solid #dddd0b;
 }
 
 input.invalid {
@@ -131,12 +144,19 @@ input.valid {
 main {
   height: 85%;
   flex-direction: column;
-  background-color: #c5c3c6;
+  background-image: url("./images/bg.jpg");
+  /**background-color: #c5c3c6;**/
 }
 
 h2 {
   font-size: 32px;
-  color: #46494b;
+  color: #00ff67;
+  text-shadow: 3px 2px 5px #000000;
+}
+
+.game-info {
+  display: flex;
+  align-items: center;
 }
 
 .board {
@@ -145,7 +165,6 @@ h2 {
   grid-template-rows: 33.33% 33.33% 33.33%;
   height: 70%;
   width: calc(0.7 * 85vh);
-  border: 3px solid grey;
 }
 
 .cell {
@@ -153,8 +172,9 @@ h2 {
   justify-content: center;
   align-items: center;
   font-size: 42px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.2);
   border: 2px solid black;
+  padding: 1%;
 }
 
 .cell-no-bottom {
@@ -182,11 +202,19 @@ h2 {
 button {
   padding: 10px 20px;
   font-size: 24px;
-  color: #b0e4db;
+  color: #e9e9e9;
   border-radius: 5px;
-  border: 3px solid #2a3a46;
-  background-color: #4c5c68;
+  border: 3px solid #17301b;
+  background-color: #345e24;
   cursor: pointer;
+}
+
+button:hover {
+  background-color: #48643d;
+}
+
+button:active {
+  transform: scale(0.9);
 }
 
 .hidden {
@@ -223,6 +251,9 @@ button {
   }
   .marker {
     height: calc(0.9 * 0.5 * 100vw);
+  }
+  img {
+    max-height: calc(0.9 * 0.44 * 100vw);
   }
   input {
     width: 200px;

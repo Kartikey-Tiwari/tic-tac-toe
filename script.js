@@ -85,17 +85,23 @@ const GameController = (() => {
 
   function switchPlayers() {
     activePlayer = activePlayer === player1 ? player2 : player1;
-    DisplayController.displayMessage(`${activePlayer.getName()}'s turn`);
+    DisplayController.displayMessage(
+      `${activePlayer.getName()}'s turn`,
+      `./images/${activePlayer.getMark()}.webp`
+    );
   }
 
   function makeMove(i, j, cell) {
     GameBoard.move(i, j, activePlayer.getMark());
     DisplayController.setMark(cell, activePlayer.getMark());
     if (GameBoard.checkWinner()) {
-      DisplayController.displayMessage(`${activePlayer.getName()} wins!`);
+      DisplayController.displayMessage(
+        `${activePlayer.getName()} wins!`,
+        `./images/${activePlayer.getMark()}.webp`
+      );
       isGameOver = true;
     } else if (GameBoard.getCellsFilled() === 9) {
-      DisplayController.displayMessage(`It's a tie!`);
+      DisplayController.displayMessage(`It's a tie!`, "");
       isGameOver = true;
     } else {
       switchPlayers();
@@ -109,7 +115,10 @@ const GameController = (() => {
   function reset() {
     activePlayer = player1;
     isGameOver = false;
-    DisplayController.displayMessage(`${activePlayer.getName()}'s turn`);
+    DisplayController.displayMessage(
+      `${activePlayer.getName()}'s turn`,
+      `./images/${activePlayer.getMark()}.webp`
+    );
   }
 
   function init() {
@@ -137,6 +146,7 @@ const DisplayController = (() => {
   const startScreen = document.querySelector(".start-screen");
   const mainGameScreen = document.querySelector("main");
   const gameInfo = document.querySelector(".game-info");
+  const gameInfoImg = document.querySelector(".game-info > img");
   const boardCells = document.querySelectorAll(".cell");
   const restartBtn = document.querySelector(".restart");
   const newGameBtn = document.querySelector(".new-game");
@@ -170,6 +180,7 @@ const DisplayController = (() => {
     for (const player of playerNames) {
       if (!player.checkValidity()) {
         player.classList.add("invalid");
+        player.focus();
         return;
       }
     }
@@ -180,7 +191,7 @@ const DisplayController = (() => {
       playerNames[1].value,
       markerB.dataset.idx
     );
-    gameInfo.textContent = `${playerNames[0].value}'s turn`;
+    gameInfo.innerHTML = `<img src="./images/${markerA.dataset.idx}.webp" style="height: 60px; margin-right: 5px;"> ${playerNames[0].value}'s turn`;
     startScreen.classList.add("hidden");
     mainGameScreen.classList.remove("hidden");
   });
@@ -245,8 +256,10 @@ const DisplayController = (() => {
     });
   }
 
-  function displayMessage(message) {
+  function displayMessage(message, src) {
     gameInfo.textContent = message;
+    gameInfo.prepend(gameInfoImg);
+    gameInfoImg.src = src;
   }
 
   function setMark(cell, mark) {
